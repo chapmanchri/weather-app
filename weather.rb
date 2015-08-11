@@ -12,14 +12,19 @@ end
 
 def getWeather(location)
   @client = Weatherman::Client.new
-  response = @client.lookup_by_location(location)
+  weather = @client.lookup_by_location(location)
+  return weather
+end
+  
+def displayWeather(response)
   puts "\n\nThe weather forecast for #{response.location["city"]}, #{response.location["region"]} is:\n\n"
 
   currentDay = Time.now.strftime("%w").to_i
+  puts "currentDay = #{currentDay}"
    response.forecasts.each do |day|
-     if day["date"].strftime("%w").to_i == 0
+     if day["date"].strftime("%w").to_i == currentDay
        puts "\tToday: #{day["text"]} with a low of #{day["low"]}c and a high of #{day["high"]}c. The current temperature is #{response.condition["temp"]}c."
-     elsif day["date"].strftime("%w").to_i == 1
+     elsif day["date"].strftime("%w").to_i == currentDay + 1
        puts "\tTomorrow: #{day["text"]} with a low of #{day["low"]}c and a high of #{day["high"]}c."
      else
        puts "\t#{day["day"]}: #{day["text"]} with a low of #{day["low"]}c and a high of #{day["high"]}c."
@@ -29,7 +34,8 @@ def getWeather(location)
 end
 
 location = getLocation
-getWeather(location)
+weather = getWeather(location)
+displayWeather(weather)
 
 
 
