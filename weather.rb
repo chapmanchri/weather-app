@@ -17,8 +17,6 @@ def getWeather(location)
 end
   
 def displayWeather(response)
-  puts "\n\nThe weather forecast for #{response.location["city"]}, #{response.location["region"]} is:\n\n"
-
   currentDay = Time.now.strftime("%w").to_i
   puts "currentDay = #{currentDay}"
    response.forecasts.each do |day|
