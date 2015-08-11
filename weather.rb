@@ -18,7 +18,6 @@ end
   
 def displayWeather(response)
   currentDay = Time.now.strftime("%w").to_i
-  puts "currentDay = #{currentDay}"
    response.forecasts.each do |day|
      if day["date"].strftime("%w").to_i == currentDay
        puts "\tToday: #{day["text"]} with a low of #{day["low"]}c and a high of #{day["high"]}c. The current temperature is #{response.condition["temp"]}c."
